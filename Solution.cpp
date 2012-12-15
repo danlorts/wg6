@@ -7,6 +7,7 @@
 #include "Problem.h"
 
 void Solution::format(Problem& p, std::ostream& out) {
+    out << std::endl;
     out << "  Dump of solution " << this << " (score " << fitness << "):" << std::endl;
 
     std::bitset<MAX_EVENTS> bits;

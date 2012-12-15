@@ -53,7 +53,11 @@ Solution Problem::solve() {
 
     int gens = 1;
     while (true) {
-        //std::cout << "   Generation #" << gens << " (best: " << population.best().fitness << ")" << std::endl;
+        if (gens % 200 == 0) {
+            std::cout << "  Generation #" << gens;
+            std::cout << " (best: " << population.best().fitness << ")" << std::endl;
+        }
+
         population.select(this);
         if (gens >= GENS_COUNT) break;
         population.crossover();
