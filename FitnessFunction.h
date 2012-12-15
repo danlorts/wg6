@@ -10,7 +10,4 @@ class Problem;
 class SimpleFitnessFunction {
     public:
     void fitness(Population* pop, Problem* p);
-
-    private:
-    std::bitset<MAXBLOCK> scratch;
 };

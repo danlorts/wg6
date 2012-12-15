@@ -4,7 +4,7 @@
 #include <cstdint>
 
 // The number of threads to use.
-static const int NUMTHREADS = 1;
+static const int NUMTHREADS = 4;
 
 // The number of generations to calculate.
 static const int GENS_COUNT = 2500;

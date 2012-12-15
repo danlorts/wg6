@@ -4,7 +4,10 @@
 
 #include <iostream>
 
+std::bitset<MAXBLOCK> scratch;
+
 void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
+    #pragma omp parallel for num_threads(NUMTHREADS) private(scratch)
     for (int is = 0; is < POPULATION; is++) {
         /* MAIN FITNESS DETERMINATION */
         /* Is every event scheduled on a unique time? */

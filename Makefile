@@ -1,6 +1,6 @@
 CXX ?= g++
-FLAGS ?= -std=c++11
-CXXFLAGS ?= -Wall -Wextra -pedantic -g -Os -pipe $(FLAGS)
+FLAGS ?= -std=c++11 -fopenmp
+CXXFLAGS ?= -Wall -Wextra -Werror -pedantic -g -Os -pipe $(FLAGS)
 LDFLAGS ?= -lboost_thread -lboost_system -lsigsegv
 
 OBJECTS = wg6.o config.o\
