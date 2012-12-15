@@ -1,10 +1,44 @@
 #include <iostream>
+#include <string>
+#include <ctime>
 
 #include "config.h"
 
 #include "Problem.h"
 
+using std::cout;
+using std::endl;
+
 int main() {
+    // Record start time
+    time_t top;
+    time(&top);
+
+    // Spit out CGI headers
+    cout << "Content-type: text/plain" << endl;
+    cout << "Connection: close" << endl;
+    cout << "Pragma: no-cache" << endl;
+    cout << "Server: wg6" << endl;
+    cout << endl;
+
+    // Print banner
+    cout << "        _     This is wg6, the genetic schedule solver." << endl;
+    cout << "      _|_     wg6 is designed to be quite verbose. Expect"<< endl;
+    cout << "  \\/\\(_|_)    lots of output." << endl;
+    cout << "      _|      Run started: " << ctime(&top) << endl;
+
+    // Print configuation
+    cout << "  Configuration used:" << endl;
+    cout << "  - Threads:        " << NUMTHREADS << endl;
+    cout << "  - Generations:    " << GENS_COUNT << endl;
+    cout << "  - Population:     " << POPULATION << endl;
+    cout << "  - Mutations:      " << MUTS_COUNT << endl;
+    cout << "  - Crossovers:     " << CROSSOVERS << endl;
+    cout << "  - Gap penalty:    " << GAPPENALTY << endl;
+    cout << "  - Length penalty: " << LENPENALTY << endl;
+    cout << "  - Max events:     " << MAX_EVENTS << endl;
+    cout << endl;
+
     std::vector<block_t> tights = { 1, 2, 3, 4 };
     std::vector<block_t> starts = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 };
 
@@ -31,7 +65,18 @@ int main() {
     p.add_event(ev9);
     p.add_event(ev10);
 
-    //p.format(std::cout);
+    Solution s = p.solve();
+    s.format(p, cout);
 
-    p.solve().format(p, std::cout);
+    // Print footer
+    time_t bottom;
+    time(&bottom);
+
+    cout << endl;
+    cout << "  Done " << ctime(&bottom);
+    cout << "  Score: " << s.fitness << " (approx ";
+    cout << (s.fitness / 1000) + 1 << "/" << p.size();
+    cout << " events scheduled)" << endl;
+    cout << "  Took " << difftime(bottom, top) << " seconds" << endl;
+    cout << endl;
 }
