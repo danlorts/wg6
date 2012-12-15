@@ -1,7 +1,7 @@
 CXX ?= g++
 FLAGS ?= -std=c++11 -fopenmp
-CXXFLAGS ?= -Wall -Wextra -Werror -pedantic -g -Os -pipe $(FLAGS)
-LDFLAGS ?= -lboost_thread -lboost_system -lsigsegv
+CXXFLAGS ?= -Wall -Wextra -Werror -pedantic -g -O0 -pipe $(FLAGS)
+LDFLAGS ?= -lsigsegv -lprofiler -ltcmalloc
 
 OBJECTS = wg6.o config.o\
 		  FitnessFunction.o\
@@ -34,7 +34,8 @@ tags: $(wildcard *.cpp) $(wildcard *.h)
 clean:
 	@rm -rvf *.o
 
-grind:
-	@valgrind ./wg6 2>&1| vim -R -
+prof: wg6
+	@env CPUPROFILE=/tmp/wg.prof ./wg6
+	@pprof --text ./wg6 /tmp/wg.prof
 
 include deps

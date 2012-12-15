@@ -2,6 +2,8 @@
 #include <string>
 #include <ctime>
 
+#include <omp.h>
+
 #include "config.h"
 
 #include "Problem.h"
@@ -29,7 +31,6 @@ int main() {
 
     // Print configuation
     cout << "  Configuration used:" << endl;
-    cout << "  - Threads:        " << NUMTHREADS << endl;
     cout << "  - Generations:    " << GENS_COUNT << endl;
     cout << "  - Population:     " << POPULATION << endl;
     cout << "  - Mutations:      " << MUTS_COUNT << endl;
@@ -37,6 +38,10 @@ int main() {
     cout << "  - Gap penalty:    " << GAPPENALTY << endl;
     cout << "  - Length penalty: " << LENPENALTY << endl;
     cout << "  - Max events:     " << MAX_EVENTS << endl;
+    cout << endl;
+
+    cout << "  Runtime information:" << endl;
+    cout << "  - Processors:     " << omp_get_num_procs() << endl;
     cout << endl;
 
     std::vector<block_t> tights = { 1, 2, 3, 4 };

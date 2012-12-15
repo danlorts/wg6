@@ -7,14 +7,20 @@
 std::bitset<MAXBLOCK> scratch;
 
 void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
-    #pragma omp parallel for num_threads(NUMTHREADS) private(scratch)
+    int lo, hi;
+    bool allfit;
+
+    #pragma omp parallel for private(scratch, lo, hi, allfit)
     for (int is = 0; is < POPULATION; is++) {
         /* MAIN FITNESS DETERMINATION */
         /* Is every event scheduled on a unique time? */
         scratch.reset();
 
         unsigned int fitness = 0;
-        int lo = scratch.size(), hi = 0;
+
+        lo = MAXBLOCK;
+        hi = 0;
+        allfit = true;
 
         for (int ie = 0; ie < (int)p->evs.size(); ie++) {
             bool fits = true;
@@ -36,24 +42,27 @@ void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
             }
 
             if (fits) fitness += 1000;
+            else allfit = false;
         }
 
         // SECONDARY FITNESS DETERMINATION
         
-        // Gap penalty: substract points for gaps in the schedule
-        if (GAPPENALTY && lo > 0) {
-            int gaps = 0;
+        if (allfit) {
+            // Gap penalty: substract points for gaps in the schedule
+            if (GAPPENALTY && lo > 0) {
+                int gaps = 0;
 
-            for (int i = lo; i < hi; i++) {
-                if (scratch[i-1] != scratch[i]) gaps++;
+                for (int i = lo; i < hi; i++) {
+                    if (scratch[i-1] != scratch[i]) gaps++;
+                }
+
+                fitness -= (gaps - 2) * GAPPENALTY;
             }
 
-            fitness -= (gaps - 2) * GAPPENALTY;
-        }
-
-        // Length penalty: substract points for overly long schedules
-        if (LENPENALTY) {
-            fitness -= (hi - lo) * LENPENALTY;
+            // Length penalty: substract points for overly long schedules
+            if (LENPENALTY) {
+                fitness -= (hi - lo) * LENPENALTY;
+            }
         }
 
         // Save fitness

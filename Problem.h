@@ -39,5 +39,4 @@ class Problem {
     private:
     Parser parser;
     Population population;
-    std::array<SolverThread, NUMTHREADS> solvers;
 };
