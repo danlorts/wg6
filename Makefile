@@ -10,7 +10,6 @@ OBJECTS = wg6.o config.o\
 		  Problem.o\
 		  Population.o\
 		  Solution.o\
-		  SolverThread.o
 
 # Targets
 all: wg6 deps tags

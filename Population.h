@@ -5,8 +5,6 @@
 #include "config.h"
 
 #include "Solution.h"
-#include "SolverThread.h"
-
 #include "FitnessFunction.h"
 
 // A population of Solutions.
