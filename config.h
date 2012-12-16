@@ -10,7 +10,7 @@ static const int NUMTHREADS = 4;
 static const int GENS_COUNT = 2500;
 
 // The population size.
-static const int POPULATION = 1000;
+static const int POPULATION = 2000;
 
 // How many solutions to mutate per generation.
 static const int MUTS_COUNT = POPULATION * 0.01;
