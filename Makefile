@@ -1,6 +1,6 @@
 CXX ?= g++
 FLAGS ?= -std=c++11 -fopenmp
-CXXFLAGS ?= -Wall -Wextra -Werror -pedantic -g -O0 -pipe $(FLAGS)
+CXXFLAGS ?= -Wall -Wextra -Werror -pedantic -g -Os -pipe $(FLAGS)
 LDFLAGS ?= -lsigsegv -lprofiler -ltcmalloc
 
 OBJECTS = wg6.o config.o\

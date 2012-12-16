@@ -8,7 +8,8 @@
 #include <array>
 #include <algorithm>
 
-std::set<Interval> inuse;
+std::array<Interval, MAX_EVENTS> inuse;
+unsigned int intervals = 0;
 
 // Intervals are sorted by start.
 inline bool operator<(const Interval &a, const Interval &b) {
@@ -39,12 +40,12 @@ void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
     unsigned int fitness;
     //bool allfit;
 
-    #pragma omp parallel for private(inuse, fitness) num_threads(NUMTHREADS) 
+    #pragma omp parallel for private(inuse, fitness, intervals) num_threads(NUMTHREADS) 
     for (int is = 0; is < POPULATION; is++) {
         /* MAIN FITNESS DETERMINATION */
         /* Is every event scheduled on a unique time? */
 
-        inuse.clear(); // Reset inuse set
+        intervals = 0; // Reset inuse array
         fitness = 0; // Reset fitness
 
         //lo = MAXBLOCK;
@@ -64,16 +65,15 @@ void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
             //std::cout << "  Trying event at interval " << iv << std::endl;
             //std::cout << "  Intervals in use:";
 
-            //for (auto i : inuse) {
-                //std::cout << " " << i;
+            //for (unsigned int x = 0; x < intervals; x++) {
+                //std::cout << " " << inuse[x];
             //}
 
             //std::cout << std::endl;
 
-            for (auto it = inuse.begin(); it != inuse.end(); it++) {
-                Interval other = *it;
-
-                if (iv.end <= other.begin) break;
+            unsigned int i;
+            for (i = 0; i < intervals; i++) {
+                Interval other = inuse[i];
 
                 if (iv.intersect(other)) {
                     //std::cout << "  Interval ";
@@ -98,7 +98,8 @@ void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
             if (fits) {
                 //std::cout << "  Event fits at interval " << iv << std::endl;
                 fitness += 1000;
-                inuse.insert(iv);
+                inuse[i] = iv;
+                intervals++;
             } else {
                 //std::cout << "  Event doesn't fit, not awarding points" << std::endl;
                 //allfit = false;
