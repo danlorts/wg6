@@ -41,6 +41,7 @@ int main() {
     cout << "  - Gap penalty:    " << GAPPENALTY << endl;
     cout << "  - Length penalty: " << LENPENALTY << endl;
     cout << "  - Max events:     " << MAX_EVENTS << endl;
+    cout << "  - Highest block:  " << MAXBLOCK << endl;
     cout << endl;
 
     // Print runtime information
@@ -73,6 +74,8 @@ int main() {
     p.add_event(ev8);
     p.add_event(ev9);
     p.add_event(ev10);
+
+    cout << "  Solving a problem with " << p.size() << " events" << endl;
 
     Solution s = p.solve();
     s.format(p, cout);
