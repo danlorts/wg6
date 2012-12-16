@@ -6,25 +6,26 @@
 
 #include <stdlib.h>
 
+std::mt19937 rng;
+std::uniform_int_distribution<uint32_t> uint_dist;
+
 void Population::populate(int begin, int end) {
-    srand(time(NULL));
+    rng.seed(time(NULL));
 
     for (int is = begin; is < end; is++) {
         for (int ie = 0; ie < evs; ie++) {
-            pop[is].picks[ie] = rand() % max_picks[ie];
+            pop[is].picks[ie] = uint_dist(rng) % max_picks[ie];
         }
     }
 }
 
 void Population::mutate() {
-    srand(time(NULL));
-
     for (int i = 0; i < MUTS_COUNT; i++) {
         int target_i = rand() % POPULATION;
         int victim_i = rand() % MAX_EVENTS;
 
         if (max_picks[victim_i] > 0) {
-            pop[target_i].picks[victim_i] = rand() % max_picks[victim_i];
+            pop[target_i].picks[victim_i] = uint_dist(rng) % max_picks[victim_i];
         }
     }
 }

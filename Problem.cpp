@@ -5,6 +5,7 @@
 #include <sstream>
 
 Problem::Problem() : evs(), population() {
+    evs.reserve(MAX_EVENTS);
 }
 
 Problem::~Problem() {
