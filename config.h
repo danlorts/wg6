@@ -2,6 +2,21 @@
 
 #include <limits>
 #include <cstdint>
+#include <string>
+
+// Version information
+static const int MAJOR_VERS = 0;
+static const int MINOR_VERS = 1;
+#ifdef BUILDDATE
+static std::string DATE = BUILDDATE;
+#else
+static std::string DATE = "unknown";
+#endif
+#ifdef BUILDREV
+static std::string REVISION = BUILDREV;
+#else
+static std::string REVISION = "unknown";
+#endif
 
 // The number of threads to use.
 static const int NUMTHREADS = 4;

@@ -31,6 +31,12 @@ int main() {
     cout << "  \\/\\(_|_)    lots of output." << endl;
     cout << "      _|      Run started: " << ctime(&top) << endl;
 
+    cout << "  Build information:" << endl;
+    cout << "  - Version:        " << MAJOR_VERS << "." << MINOR_VERS << endl;
+    cout << "  - Build date:     " << DATE << endl;
+    cout << "  - Commit:         " << REVISION << endl;
+    cout << endl;
+
     // Print configuation
     cout << "  Configuration used:" << endl;
     cout << "  - Threads:        " << NUMTHREADS << endl;
