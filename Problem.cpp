@@ -51,15 +51,9 @@ Solution Problem::solve() {
 
     population.populate();
 
-    int gens = 1;
-    while (true) {
-        if (gens % 200 == 0) {
-            std::cout << "  Generation #" << gens;
-            std::cout << " (best: " << population.best().fitness << ")" << std::endl;
-        }
-
+    #pragma omp parallel for num_threads(1)
+    for (int gens = 1; gens < GENS_COUNT; gens++) {
         population.select(this);
-        if (gens >= GENS_COUNT) break;
         population.crossover();
         population.mutate();
         gens++;

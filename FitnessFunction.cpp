@@ -10,7 +10,7 @@ void SimpleFitnessFunction::fitness(Population* pop, Problem* p) {
     int lo, hi;
     bool allfit;
 
-    #pragma omp parallel for private(scratch, lo, hi, allfit)
+    #pragma omp parallel for private(scratch, lo, hi, allfit) num_threads(NUMTHREADS) 
     for (int is = 0; is < POPULATION; is++) {
         /* MAIN FITNESS DETERMINATION */
         /* Is every event scheduled on a unique time? */

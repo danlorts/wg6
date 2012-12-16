@@ -3,11 +3,14 @@
 #include <limits>
 #include <cstdint>
 
+// The number of threads to use.
+static const int NUMTHREADS = 4;
+
 // The number of generations to calculate.
 static const int GENS_COUNT = 2500;
 
 // The population size.
-static const int POPULATION = 1500;
+static const int POPULATION = 1000;
 
 // How many solutions to mutate per generation.
 static const int MUTS_COUNT = POPULATION * 0.01;

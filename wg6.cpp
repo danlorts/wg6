@@ -31,6 +31,7 @@ int main() {
 
     // Print configuation
     cout << "  Configuration used:" << endl;
+    cout << "  - Threads:        " << NUMTHREADS << endl;
     cout << "  - Generations:    " << GENS_COUNT << endl;
     cout << "  - Population:     " << POPULATION << endl;
     cout << "  - Mutations:      " << MUTS_COUNT << endl;
@@ -79,9 +80,6 @@ int main() {
 
     cout << endl;
     cout << "  Done " << ctime(&bottom);
-    cout << "  Score: " << s.fitness << " (approx ";
-    cout << (s.fitness / 1000) + 1 << "/" << p.size();
-    cout << " events scheduled)" << endl;
     cout << "  Took " << difftime(bottom, top) << " seconds" << endl;
     cout << endl;
 }
