@@ -94,6 +94,6 @@ int main() {
 
     cout << endl;
     cout << "  Done " << ctime(&bottom);
-    cout << "  Took " << difftime(bottom, top) << " seconds" << endl;
+    cout << "  Took " << difftime(bottom, top) << " seconds, " << clock() << " ticks" << endl;
     cout << endl;
 }
