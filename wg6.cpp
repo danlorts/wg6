@@ -86,7 +86,7 @@ int main() {
     Solution s = p.solve();
     s.format(p, cout);
 
-    p.format_history(cout);
+    if (KEEP_HIST) p.format_history(cout);
 
     // Print footer
     time_t bottom;

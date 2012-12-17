@@ -43,6 +43,9 @@ static const int LENPENALTY = 5;
 // The maximum amount of events.
 static const int MAX_EVENTS = 100;
 
+// Whether or not to keep history.
+static const bool KEEP_HIST = true;
+
 // The 'pick' type: an index into a starts array.
 typedef uint16_t pick_t;
 

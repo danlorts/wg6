@@ -36,6 +36,7 @@ class Problem {
     void format_history(std::ostream& out);
 
     std::vector<Event> evs;
+
     std::array<unsigned int, GENS_COUNT> history;
 
     private:

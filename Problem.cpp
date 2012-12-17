@@ -55,7 +55,7 @@ Solution Problem::solve() {
     #pragma omp parallel for num_threads(1)
     for (int gens = 1; gens < GENS_COUNT; gens++) {
         population.select(this);
-        history[gens] = population.best().fitness;
+        if (KEEP_HIST) history[gens] = population.best().fitness;
         population.crossover();
         population.mutate();
     }
