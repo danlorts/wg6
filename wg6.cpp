@@ -81,10 +81,12 @@ int main() {
     p.add_event(ev9);
     p.add_event(ev10);
 
-    cout << "  Solving a problem with " << p.size() << " events" << endl;
+    p.format(cout);
 
     Solution s = p.solve();
     s.format(p, cout);
+
+    p.format_history(cout);
 
     // Print footer
     time_t bottom;

@@ -55,9 +55,9 @@ Solution Problem::solve() {
     #pragma omp parallel for num_threads(1)
     for (int gens = 1; gens < GENS_COUNT; gens++) {
         population.select(this);
+        history[gens] = population.best().fitness;
         population.crossover();
         population.mutate();
-        gens++;
     }
 
     return population.best();
@@ -75,11 +75,28 @@ void Problem::format(std::ostream& out) {
             out << ev.description;
             out << " (" << ev.length << ")";
 
+            /*
             for (block_t start : ev.starts) {
                 out << " " << start;
             }
+            */
 
             out << std::endl;
         }
+    }
+}
+
+void Problem::format_history(std::ostream& out) {
+    unsigned int maxscore = population.best().fitness;
+    float multiply = 74.0 / maxscore;
+
+    out << std::endl;
+    out << "  Score history of problem " << this << ":" << std::endl;
+    for (int i = 0; i < GENS_COUNT; i += 200) {
+        std::cout << "  | ";
+        for (int x = 0; x < history[i] * multiply; x++) {
+            std::cout << 'x';
+        }
+        std::cout << std::endl;
     }
 }

@@ -33,8 +33,10 @@ class Problem {
 
     // High-level "Print this to somewhere" function
     void format(std::ostream& out);
+    void format_history(std::ostream& out);
 
     std::vector<Event> evs;
+    std::array<unsigned int, GENS_COUNT> history;
 
     private:
     Parser parser;
